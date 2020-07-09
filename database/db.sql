@@ -1,0 +1,27 @@
+CREATE DATABASE trello;
+
+USE trello;
+
+CREATE TABLE users(
+    id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(10) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE listas(
+    id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(150) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    user_id INT(10),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE tareas(
+    id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    lista_id INT(10),
+    CONSTRAINT fk_lista FOREIGN KEY (lista_id) REFERENCES listas(id)
+);
